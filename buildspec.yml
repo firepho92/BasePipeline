@@ -8,6 +8,5 @@ version: 0.2
 phases:
   install:
     commands:
-      - cdk --version
       - node --version
       - npm --version
