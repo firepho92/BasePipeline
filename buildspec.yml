@@ -5,8 +5,11 @@ phases:
       - node --version
       - npm --version
       - npm install
+  build:
+    commands:
       - npm run build
       - npm run cdk synth -- -o dist
+      - npm run cdk deploy -- --require-approval never
 artifacts:
   files:
     - dist/*
