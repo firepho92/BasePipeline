@@ -10,3 +10,5 @@ phases:
     commands:
       - node --version
       - npm --version
+      - cdk synth
+      - cdk deploy
