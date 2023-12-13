@@ -23,7 +23,7 @@ export default class BasePipeline extends Pipeline {
           owner: 'firepho92',
           repo: 'BasePipeline',
           actionName: 'GitHub_Source',
-          oauthToken: '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',
+          oauthToken: SecretValue.secretsManager('base-pipeline-token'),
         }
       )
     );
