@@ -9,7 +9,7 @@ phases:
     commands:
       - npm run build
       - npm run cdk synth -- -o dist
-      - npx cdk bootstrap aws://058632605534/us-east-1
+      - cdk bootstrap aws://058632605534/us-east-1
       - npm run cdk deploy -- --require-approval never
 artifacts:
   files:
