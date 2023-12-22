@@ -16,8 +16,8 @@ export class BasePipelineStack extends Stack {
             triggerOnPush: true
           }),
           commands: ['npm install']
-      })            
-  })
+      })
+  });
     // The code that defines your stack goes here
     // const basePipeline = new BasePipeline(this, 'MainPipeline', { 
     //   pipelineName: 'MainPipeline',
