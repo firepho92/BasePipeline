@@ -2,16 +2,17 @@ import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import BasePipeline from './resources/pipeline/BasePipeline';
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
+import EnvironmentHelper from './infrastructure/EnvironmentHelper';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class BasePipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
-    const pipeline = new CodePipeline(this, `Main-pipeline`, {
-      pipelineName: `Main-pipeline`,
+    const pipeline = new CodePipeline(this, EnvironmentHelper.PIPELINE_NAME, {
+      pipelineName: EnvironmentHelper.PIPELINE_NAME,
       synth: new ShellStep('Synth', {
-          input: CodePipelineSource.connection(`firepho92/BasePipeline`,`dev`,{
-            connectionArn: 'arn:aws:codestar-connections:us-east-1:058632605534:connection/2d99428e-d740-40cb-9f88-ec8fd959dcf2',
+          input: CodePipelineSource.connection(`${EnvironmentHelper.GITHUB_USERNAME}/${EnvironmentHelper.GITHUB_REPO}`,`${EnvironmentHelper.GITHUB_BRANCH}`,{
+            connectionArn: `${EnvironmentHelper.CONNECTION_ARN}`,
             actionName:'SourceGithub',
             triggerOnPush: true
           }),
