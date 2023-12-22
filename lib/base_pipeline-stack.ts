@@ -7,17 +7,25 @@ import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelin
 export class BasePipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
-    const pipeline = new CodePipeline(this, `Main-pipeline`, {
-      pipelineName: `Main-pipeline`,
+    const pipeline = new CodePipeline(this, `Main-Pipeline`, {
+      pipelineName: `Moments-Pipeline`,
       synth: new ShellStep('Synth', {
           input: CodePipelineSource.connection(`firepho92/BasePipeline`,`dev`,{
             connectionArn: 'arn:aws:codestar-connections:us-east-1:058632605534:connection/2d99428e-d740-40cb-9f88-ec8fd959dcf2',
             actionName:'SourceGithub',
             triggerOnPush: true
           }),
-          commands: ['npm install']
+          commands: ['echo $STAGE', 'npm install'],
+          env: {
+            STACK_NAME: `Moments-Stack`,
+            PIPELINE_NAME: `Moments-Pipeline`,
+            GITHUB_USERNAME: `firepho92`,
+            GITHUB_REPO: `BasePipeline`,
+            GITHUB_BRANCH: `dev`,
+            CONNECTION_ARN: `arn:aws:codestar-connections:us-east-1:058632605534:connection/2d99428e-d740-40cb-9f88-ec8fd959dcf2`,
+          }
       })
-  });
+    });
     // The code that defines your stack goes here
     // const basePipeline = new BasePipeline(this, 'MainPipeline', { 
     //   pipelineName: 'MainPipeline',
