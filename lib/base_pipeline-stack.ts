@@ -11,14 +11,25 @@ export class BasePipelineStack extends Stack {
     const pipeline = new CodePipeline(this, EnvironmentHelper.PIPELINE_NAME, {
       pipelineName: EnvironmentHelper.PIPELINE_NAME,
       synth: new ShellStep('Synth', {
-          input: CodePipelineSource.connection(`${EnvironmentHelper.GITHUB_USERNAME}/${EnvironmentHelper.GITHUB_REPO}`,`${EnvironmentHelper.GITHUB_BRANCH}`,{
-            connectionArn: `${EnvironmentHelper.CONNECTION_ARN}`,
-            actionName:'SourceGithub',
-            triggerOnPush: true
-          }),
-          commands: ['npm install']
+        input: CodePipelineSource.connection(`${EnvironmentHelper.GITHUB_USERNAME}/${EnvironmentHelper.GITHUB_REPO}`,`${EnvironmentHelper.GITHUB_BRANCH}`,{
+          connectionArn: `${EnvironmentHelper.CONNECTION_ARN}`,
+          actionName:'SourceGithub',
+          triggerOnPush: true
+        }),
+        installCommands: [
+          'node --version',
+          'npm --version',
+          'npm install'
+        ],
+        commands: [
+          'npm run build',
+          'npm run cdk synth -- -o dist',
+          'npm run cdk bootstrap',
+          'npm run cdk diff -- --require-approval never',
+          'npm run cdk deploy -- --require-approval never',
+        ]
       })
-  });
+    });
     // The code that defines your stack goes here
     // const basePipeline = new BasePipeline(this, 'MainPipeline', { 
     //   pipelineName: 'MainPipeline',
