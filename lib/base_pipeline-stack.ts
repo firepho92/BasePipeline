@@ -15,7 +15,18 @@ export class BasePipelineStack extends Stack {
             actionName:'SourceGithub',
             triggerOnPush: true
           }),
-          commands: ['echo $STAGE', 'npm install'],
+          installCommands: [
+            'node --version',
+            'npm --version',
+            'npm install'
+          ],
+          commands: [
+            'npm run build',
+            'npm run cdk synth -- -o dist',
+            'npm run cdk bootstrap',
+            'npm run cdk diff -- --require-approval never',
+            'npm run cdk deploy -- --require-approval never',
+          ],
           env: {
             STACK_NAME: `Moments-Stack`,
             PIPELINE_NAME: `Moments-Pipeline`,
