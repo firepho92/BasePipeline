@@ -30,7 +30,7 @@ export class BasePipelineStack extends Stack {
           'npm run cdk bootstrap',
           'npm run cdk diff -- --require-approval never',
           'npm run cdk deploy -- --require-approval never',
-        ],
+        ]
       })
     });
     // The code that defines your stack goes here
