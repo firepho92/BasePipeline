@@ -8,10 +8,10 @@ export class BasePipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const role = Role.fromRoleArn(this, 'Role', 'arn:aws:iam::058632605534:role/service-role/codebuild-BasePipeline-service-role');
+    // const role = Role.fromRoleArn(this, 'Role', 'arn:aws:iam::058632605534:role/service-role/codebuild-BasePipeline-service-role');
 
     const pipeline = new CodePipeline(this, `Main-Pipeline`, {
-      role,
+      // role,
       pipelineName: `Moments-Pipeline`,
       synth: new ShellStep('Synth', {
           input: CodePipelineSource.connection(`firepho92/BasePipeline`,`dev`,{
