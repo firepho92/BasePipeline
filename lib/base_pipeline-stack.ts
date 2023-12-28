@@ -1,18 +1,17 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
-import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class BasePipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
+
+    const role = Role.fromRoleArn(this, 'Role', 'arn:aws:iam::058632605534:role/service-role/codebuild-BasePipeline-service-role');
+
     const pipeline = new CodePipeline(this, `Main-Pipeline`, {
-      synthCodeBuildDefaults: {
-        rolePolicy: [
-          new PolicyStatement()
-        ]
-      },
+      role,
       pipelineName: `Moments-Pipeline`,
       synth: new ShellStep('Synth', {
           input: CodePipelineSource.connection(`firepho92/BasePipeline`,`dev`,{
