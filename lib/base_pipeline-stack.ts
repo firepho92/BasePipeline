@@ -1,15 +1,18 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import BasePipeline from './resources/pipeline/BasePipeline';
-import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
+import { Stack, StackProps } from 'aws-cdk-lib';
 import EnvironmentHelper from './infrastructure/EnvironmentHelper';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
+import { ManagedPolicy, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 
 export class BasePipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
+
+    const role = Role.fromRoleArn(this, 'Role', 'arn:aws:iam::058632605534:role/service-role/codebuild-BasePipeline-service-role');
+
     const pipeline = new CodePipeline(this, EnvironmentHelper.PIPELINE_NAME, {
       pipelineName: EnvironmentHelper.PIPELINE_NAME,
+      role: role,
       synth: new ShellStep('Synth', {
         input: CodePipelineSource.connection(`${EnvironmentHelper.GITHUB_USERNAME}/${EnvironmentHelper.GITHUB_REPO}`,`${EnvironmentHelper.GITHUB_BRANCH}`,{
           connectionArn: `${EnvironmentHelper.CONNECTION_ARN}`,
@@ -27,7 +30,7 @@ export class BasePipelineStack extends Stack {
           'npm run cdk bootstrap',
           'npm run cdk diff -- --require-approval never',
           'npm run cdk deploy -- --require-approval never',
-        ]
+        ],
       })
     });
     // The code that defines your stack goes here
