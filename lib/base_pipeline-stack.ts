@@ -19,6 +19,7 @@ export class BasePipelineStack extends Stack {
           triggerOnPush: true
         }),
         installCommands: [
+          'yarn --version',
           'node --version',
           'npm --version',
           'npm install'
