@@ -35,8 +35,8 @@ export class MainPipelineStack extends Stack {
             // 'npm run cdk deploy -- --require-approval never',
           ],
           env: {
-            STACK_NAME: `Moments-Stack`,
-            PIPELINE_NAME: `Moments-Pipeline`,
+            STACK_NAME: `Main-Stack`,
+            PIPELINE_NAME: `Main-Pipeline`,
             GITHUB_USERNAME: `firepho92`,
             GITHUB_REPO: `BasePipeline`,
             GITHUB_BRANCH: `dev`,
