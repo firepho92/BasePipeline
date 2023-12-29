@@ -24,11 +24,14 @@ export class BasePipelineStack extends Stack {
           'npm install'
         ],
         commands: [
+          'npm ci',
           'npm run build',
-          'npm run cdk synth -- -o dist',
-          'npm run cdk bootstrap',
-          'npm run cdk diff -- --require-approval never',
-          'npm run cdk deploy -- --require-approval never',
+          'npx cdk synth',
+          // 'npm run build',
+          // 'npm run cdk synth -- -o dist',
+          // 'npm run cdk bootstrap',
+          // 'npm run cdk diff -- --require-approval never',
+          // 'npm run cdk deploy -- --require-approval never',
         ]
       })
     });
