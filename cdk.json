@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts bin/base_pipeline.ts",
+  "app": "npx ts-node --prefer-ts-exts bin/moments_pipeline.ts",
   "watch": {
     "include": [
       "**"

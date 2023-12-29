@@ -1,8 +1,8 @@
 {
-  "name": "base_pipeline",
+  "name": "moments_pipeline",
   "version": "0.1.0",
   "bin": {
-    "base_pipeline": "bin/base_pipeline.js"
+    "moments_pipeline": "bin/moments_pipeline.js"
   },
   "scripts": {
     "build": "tsc",

@@ -7,8 +7,6 @@ export class MomentsPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // const role = Role.fromRoleArn(this, 'Role', 'arn:aws:iam::058632605534:role/service-role/codebuild-BasePipeline-service-role');
-
     const pipeline = new CodePipeline(this, EnvironmentHelper.PIPELINE_NAME, {
       pipelineName: EnvironmentHelper.PIPELINE_NAME,
       // role: role,

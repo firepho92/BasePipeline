@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { MomentsPipelineStack } from '../lib/base_pipeline-stack';
+import { MomentsPipelineStack } from '../lib/moments_pipeline-stack';
 import EnvironmentHelper from '../lib/infrastructure/EnvironmentHelper';
 
 const app = new cdk.App();
