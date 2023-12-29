@@ -12,7 +12,7 @@ export class MainPipelineStack extends Stack {
 
     const pipeline = new CodePipeline(this, `Main-Pipeline`, {
       // role,
-      pipelineName: `Moments-Pipeline`,
+      pipelineName: `Main-Pipeline`,
       synth: new ShellStep('Synth', {
           input: CodePipelineSource.connection(`firepho92/BasePipeline`,`dev`,{
             connectionArn: 'arn:aws:codestar-connections:us-east-1:058632605534:connection/2d99428e-d740-40cb-9f88-ec8fd959dcf2',
@@ -20,6 +20,7 @@ export class MainPipelineStack extends Stack {
             triggerOnPush: true,
           }),
           installCommands: [
+            'yarn --version',
             'node --version',
             'npm --version',
             'npm install'
