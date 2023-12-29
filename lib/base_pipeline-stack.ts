@@ -8,7 +8,7 @@ export class BasePipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // const role = Role.fromRoleArn(this, 'Role', 'arn:aws:iam::058632605534:role/service-role/codebuild-BasePipeline-service-role');
+    const role = Role.fromRoleArn(this, 'Role', 'arn:aws:iam::058632605534:role/service-role/codebuild-BasePipeline-service-role');
 
     const pipeline = new CodePipeline(this, `Main-Pipeline`, {
       // role,
@@ -25,11 +25,14 @@ export class BasePipelineStack extends Stack {
             'npm install'
           ],
           commands: [
+            'npm ci',
             'npm run build',
-            'npm run cdk synth -- -o dist',
-            'npm run cdk bootstrap',
-            'npm run cdk diff -- --require-approval never',
-            'npm run cdk deploy -- --require-approval never',
+            'npx cdk synth',
+            // 'npm run build',
+            // 'npm run cdk synth -- -o dist',
+            // 'npm run cdk bootstrap',
+            // 'npm run cdk diff -- --require-approval never',
+            // 'npm run cdk deploy -- --require-approval never',
           ],
           env: {
             STACK_NAME: `Moments-Stack`,
