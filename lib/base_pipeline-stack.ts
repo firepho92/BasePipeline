@@ -3,7 +3,7 @@ import { Stack, StackProps } from 'aws-cdk-lib';
 import EnvironmentHelper from './infrastructure/EnvironmentHelper';
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 
-export class BasePipelineStack extends Stack {
+export class MomentsPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
