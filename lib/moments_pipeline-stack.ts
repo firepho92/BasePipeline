@@ -1,45 +1,46 @@
 import { Construct } from 'constructs';
 import { Stack, StackProps } from 'aws-cdk-lib';
 import EnvironmentHelper from './infrastructure/EnvironmentHelper';
-import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
+import BasePipeline from './resources/pipeline/MomentsPipeline';
 
 export class MomentsPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const pipeline = new CodePipeline(this, EnvironmentHelper.PIPELINE_NAME, {
-      pipelineName: EnvironmentHelper.PIPELINE_NAME,
-      // role: role,
-      synth: new ShellStep('Synth', {
-        input: CodePipelineSource.connection(`${EnvironmentHelper.GITHUB_USERNAME}/${EnvironmentHelper.GITHUB_REPO}`,`${EnvironmentHelper.GITHUB_BRANCH}`,{
-          connectionArn: `${EnvironmentHelper.CONNECTION_ARN}`,
-          actionName:'SourceGithub',
-          triggerOnPush: true
-        }),
-        installCommands: [
-          'yarn --version',
-          'node --version',
-          'npm --version',
-          'npm install'
-        ],
-        commands: [
-          'npm ci',
-          'npm run build',
-          'npx cdk synth',
-          // 'npm run build',
-          // 'npm run cdk synth -- -o dist',
-          // 'npm run cdk bootstrap',
-          // 'npm run cdk diff -- --require-approval never',
-          // 'npm run cdk deploy -- --require-approval never',
-        ]
-      })
+    const basePipeline = new BasePipeline(this, EnvironmentHelper.PIPELINE_NAME, { 
+      pipelineName: EnvironmentHelper.PIPELINE_NAME
     });
-    // The code that defines your stack goes here
-    // const basePipeline = new BasePipeline(this, 'MainPipeline', { 
-    //   pipelineName: 'MainPipeline',
-    //   pipelineVersion: '1.0.0',
+    basePipeline.execute();
+
+    // const pipeline = new CodePipeline(this, EnvironmentHelper.PIPELINE_NAME, {
+    //   pipelineName: EnvironmentHelper.PIPELINE_NAME,
+    //   // role: role,
+    //   synth: new ShellStep('Synth', {
+    //     input: CodePipelineSource.connection(`${EnvironmentHelper.GITHUB_USERNAME}/${EnvironmentHelper.GITHUB_REPO}`,`${EnvironmentHelper.GITHUB_BRANCH}`,{
+    //       connectionArn: `${EnvironmentHelper.CONNECTION_ARN}`,
+    //       actionName:'SourceGithub',
+    //       triggerOnPush: true
+    //     }),
+    //     installCommands: [
+    //       'yarn --version',
+    //       'node --version',
+    //       'npm --version',
+    //       'npm install'
+    //     ],
+    //     commands: [
+    //       'npm ci',
+    //       'npm run build',
+    //       'npx cdk synth',
+    //       // 'npm run build',
+    //       // 'npm run cdk synth -- -o dist',
+    //       // 'npm run cdk bootstrap',
+    //       // 'npm run cdk diff -- --require-approval never',
+    //       // 'npm run cdk deploy -- --require-approval never',
+    //     ]
+    //   })
     // });
-    // basePipeline.execute();
+    // The code that defines your stack goes here
+
     // example resource
     // const queue = new sqs.Queue(this, 'BasePipelineQueue', {
     //   visibilityTimeout: Duration.seconds(300)
