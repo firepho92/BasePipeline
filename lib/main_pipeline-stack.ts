@@ -48,7 +48,7 @@ export class MainPipelineStack extends Stack {
     // });
     // The code that defines your stack goes here
     const basePipeline = new BasePipeline(this, 'BasePipeline', { 
-      pipelineName: 'MainPipeline',
+      pipelineName: 'BasePipeline',
     });
     basePipeline.execute();
     // example resource
