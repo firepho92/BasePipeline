@@ -1,14 +1,11 @@
 import { Construct } from 'constructs';
 import { CodeBuildAction, CodeStarConnectionsSourceAction } from 'aws-cdk-lib/aws-codepipeline-actions';
-import { Artifact, Pipeline } from 'aws-cdk-lib/aws-codepipeline';
+import { Artifact, Pipeline, PipelineProps } from 'aws-cdk-lib/aws-codepipeline';
 import { PipelineProject } from 'aws-cdk-lib/aws-codebuild';
-import { CodePipeline, CodePipelineProps } from 'aws-cdk-lib/pipelines';
-import { StageSynthesisOptions } from 'aws-cdk-lib';
-import { CloudAssembly, CloudAssemblyBuilder } from 'aws-cdk-lib/cx-api';
 import { Role } from 'aws-cdk-lib/aws-iam';
 
 export default class BasePipeline extends Pipeline {
-  constructor(scope: Construct, id: string, props: CodePipelineProps) {
+  constructor(scope: Construct, id: string, props: PipelineProps) {
     super(scope, id, props);
   }
 
