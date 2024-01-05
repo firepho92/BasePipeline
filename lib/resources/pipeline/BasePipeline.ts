@@ -13,7 +13,7 @@ export default class BasePipeline extends Pipeline {
     const sourceOutput = new Artifact();
     const cdkOutput = new Artifact();
 
-    const role = Role.fromRoleArn(this, 'BasePipelineRole', 'arn:aws:iam::058632605534:role/service-role/AWSCodePipelineServiceRole-us-east-1-MomentsPipeline');
+    const role = Role.fromRoleArn(this, 'BasePipelineRole', 'arn:aws:iam::058632605534:role/service-role/AWSCodePipelineServiceRole-us-east-1-BasePipelineExample');
 
     // Agregar etapa de origen (Source)
     const sourceStage = this.addStage({
