@@ -45,7 +45,7 @@ export default class MomentsPipeline extends Pipeline {
       )
     );
     
-    const role = Role.fromRoleArn(this, 'Role', 'arn:aws:iam::058632605534:role/service-role/AWSCodePipelineServiceRole-us-east-1-MomentsPipeline');
+    const role = Role.fromRoleArn(this, 'MomentsPipelineRole', 'arn:aws:iam::058632605534:role/service-role/AWSCodePipelineServiceRole-us-east-1-MomentsPipeline');
 
     const buildStage = this.addStage({
       stageName: 'Build',
