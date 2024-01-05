@@ -1,8 +1,6 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
-import { PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
-import BasePipeline from './resources/pipeline/BasePipeline';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import MainPipeline from './resources/pipeline/MainPipeline';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class MainPipelineStack extends Stack {
@@ -47,8 +45,8 @@ export class MainPipelineStack extends Stack {
     //   })
     // });
     // The code that defines your stack goes here
-    const basePipeline = new BasePipeline(this, 'BasePipeline', { 
-      pipelineName: 'BasePipeline',
+    const basePipeline = new MainPipeline(this, 'MainPipeline', { 
+      pipelineName: 'MainPipeline',
     });
     basePipeline.execute();
     // example resource

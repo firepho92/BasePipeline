@@ -4,7 +4,7 @@ import { Artifact, Pipeline, PipelineProps } from 'aws-cdk-lib/aws-codepipeline'
 import { PipelineProject } from 'aws-cdk-lib/aws-codebuild';
 import { Role } from 'aws-cdk-lib/aws-iam';
 
-export default class BasePipeline extends Pipeline {
+export default class MainPipeline extends Pipeline {
   constructor(scope: Construct, id: string, props: PipelineProps) {
     super(scope, id, props);
   }
@@ -13,7 +13,7 @@ export default class BasePipeline extends Pipeline {
     const sourceOutput = new Artifact();
     const cdkOutput = new Artifact();
 
-    const role = Role.fromRoleArn(this, 'BasePipelineRole', 'arn:aws:iam::058632605534:role/service-role/AWSCodePipelineServiceRole-us-east-1-BasePipelineExample');
+    const role = Role.fromRoleArn(this, 'MainPipelineRole', 'arn:aws:iam::058632605534:role/service-role/AWSCodePipelineServiceRole-us-east-1-BasePipelineExample');
 
     // Agregar etapa de origen (Source)
     const sourceStage = this.addStage({
