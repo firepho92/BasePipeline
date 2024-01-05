@@ -16,7 +16,8 @@ export default class BasePipeline extends Pipeline {
     const sourceOutput = new Artifact();
     const cdkOutput = new Artifact();
 
-    const role = Role.fromRoleArn(this, 'CodeStarConnectionRole', 'arn:aws:iam::058632605534:role/CodeStarConnectionsRole');
+    const role = Role.fromRoleArn(this, 'Role', 'arn:aws:iam::058632605534:role/service-role/AWSCodePipelineServiceRole-us-east-1-MomentsPipeline');
+
     // Agregar etapa de origen (Source)
     const sourceStage = this.addStage({
       stageName: 'Source',
@@ -42,7 +43,6 @@ export default class BasePipeline extends Pipeline {
           repo: 'BasePipeline',
           actionName: 'GitHub_Source',
           connectionArn: 'arn:aws:codestar-connections:us-east-1:058632605534:connection/2d99428e-d740-40cb-9f88-ec8fd959dcf2',
-          role:
         }
       )
     );
@@ -58,6 +58,7 @@ export default class BasePipeline extends Pipeline {
           project: new PipelineProject(this, 'CdkBuildProject'),
           input: sourceOutput,
           outputs: [cdkOutput],
+          role
         }
       )
     );
